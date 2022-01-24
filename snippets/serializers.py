@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
+class SnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Snippet
+        fields= ['id', 'title','code','linenos','language','style']
+
+'''
 # define the API representation
 class SnippetSerializer(serializers.Serializer):
     # model fields that will be serialized/desrialized
@@ -24,3 +30,4 @@ class SnippetSerializer(serializers.Serializer):
         instance.style= validated_data.get('style',instance.style)
         instance.save()
         return instance
+'''
