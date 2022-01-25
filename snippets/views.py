@@ -1,48 +1,3 @@
-# ===> Generic Class Based Views <===
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
-from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
-
-class SnippetAPIView(ListCreateAPIView):
-    queryset= Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-class SnippetDetailAPIView(RetrieveUpdateDestroyAPIView):
-    queryset= Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-'''
-# ===> Mixins and Class Based Views <===
-from snippets.models import Snippet
-from rest_framework.generics import GenericAPIView
-from snippets.serializers import SnippetSerializer
-from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
-
-class SnippetAPIView(ListModelMixin,CreateModelMixin,GenericAPIView):
-    queryset= Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-    def get(self,request,*args,**kwargs):
-        return self.list(request,*args,**kwargs)
-
-    def post(self,request,*args,**kwargs):
-        return self.create(request,*args,**kwargs)
-
-class SnippetDetailAPIView(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,GenericAPIView):
-    queryset= Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-    def get(self,request,*args,**kwargs):
-        return self.retrieve(request,*args,**kwargs)
-
-    def put(self,request,*args,**kwargs):
-        return self.update(request,*args,**kwargs)
-
-    def delete(self,request,*args,**kwargs):
-        return self.destroy(request,*args,**kwargs)
-'''
-
-'''
 from django.http import Http404
 from rest_framework import status
 from snippets.models import Snippet
@@ -91,6 +46,51 @@ class SnippetDetailAPIView(APIView):
         snippet= self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+'''
+# ===> Generic Class Based Views <===
+from snippets.models import Snippet
+from snippets.serializers import SnippetSerializer
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
+
+class SnippetAPIView(ListCreateAPIView):
+    queryset= Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+class SnippetDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset= Snippet.objects.all()
+    serializer_class = SnippetSerializer
+'''
+
+'''
+# ===> Mixins and Class Based Views <===
+from snippets.models import Snippet
+from rest_framework.generics import GenericAPIView
+from snippets.serializers import SnippetSerializer
+from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
+
+class SnippetAPIView(ListModelMixin,CreateModelMixin,GenericAPIView):
+    queryset= Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self,request,*args,**kwargs):
+        return self.list(request,*args,**kwargs)
+
+    def post(self,request,*args,**kwargs):
+        return self.create(request,*args,**kwargs)
+
+class SnippetDetailAPIView(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin,GenericAPIView):
+    queryset= Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
+
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+
+    def delete(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
 '''
 
 '''
