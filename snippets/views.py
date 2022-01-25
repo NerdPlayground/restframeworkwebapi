@@ -4,11 +4,11 @@ from snippets.serializers import SnippetSerializer
 from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
 
 class SnippetAPIView(ListCreateAPIView):
-    snippets= Snippet.objects.all()
+    queryset= Snippet.objects.all()
     serializers = SnippetSerializer
 
 class SnippetDetailAPIView(RetrieveUpdateDestroyAPIView):
-    snippets= Snippet.objects.all()
+    queryset= Snippet.objects.all()
     serializers = SnippetSerializer
 
 '''
