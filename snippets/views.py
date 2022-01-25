@@ -5,11 +5,11 @@ from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIVi
 
 class SnippetAPIView(ListCreateAPIView):
     queryset= Snippet.objects.all()
-    serializers = SnippetSerializer
+    serializer_class = SnippetSerializer
 
 class SnippetDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset= Snippet.objects.all()
-    serializers = SnippetSerializer
+    serializer_class = SnippetSerializer
 
 '''
 # ===> Mixins and Class Based Views <===
