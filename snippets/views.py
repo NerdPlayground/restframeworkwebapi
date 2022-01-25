@@ -1,3 +1,17 @@
+# ===> Generic Class Based Views <===
+from snippets.models import Snippet
+from snippets.serializers import SnippetSerializer
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
+
+class SnippetAPIView(ListCreateAPIView):
+    snippets= Snippet.objects.all()
+    serializers = SnippetSerializer
+
+class SnippetDetailAPIView(RetrieveUpdateDestroyAPIView):
+    snippets= Snippet.objects.all()
+    serializers = SnippetSerializer
+
+'''
 # ===> Mixins and Class Based Views <===
 from snippets.models import Snippet
 from rest_framework.generics import GenericAPIView
@@ -26,6 +40,7 @@ class SnippetDetailAPIView(RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
 
     def delete(self,request,*args,**kwargs):
         return self.destroy(request,*args,**kwargs)
+'''
 
 '''
 from django.http import Http404
