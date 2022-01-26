@@ -7,7 +7,7 @@ class SnippetSerializer(serializers.ModelSerializer):
         model= Snippet
         fields= ['id', 'title','code','linenos','language','style']
 
-class UserSerializer(serializers.ModelSerial):
+class UserSerializer(serializers.ModelSerializer):
     snippets= serializers.PrimaryKeyRelatedField(many=True,queryset=Snippet.objects.all())
 
     class Meta:
