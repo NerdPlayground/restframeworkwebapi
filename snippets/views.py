@@ -21,19 +21,19 @@ class UserAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetailAPIView(APIView):
-    def get_snippet(self,pk):
+    def get_object(self,pk):
         try:
             return User.objects.get(pk=pk)
         except User.DoesNotExist:
             raise Http404
 
     def get(self,request,pk):
-        snippet= self.get_snippet(pk=pk)
+        snippet= self.get_object(pk)
         serializer= UserSerializer(snippet)
         return Response(serializer.data)
 
     def put(self,request,pk):
-        snippet= self.get_snippet(pk=pk)
+        snippet= self.get_object(pk)
         serializer= UserSerializer(snippet,data=request.data)
         if serializer.is_valid() == True:
             serializer.save()
@@ -41,7 +41,7 @@ class UserDetailAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,pk):
-        snippet= self.get_snippet(pk=pk)
+        snippet= self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
