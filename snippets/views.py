@@ -70,7 +70,7 @@ class SnippetDetailAPIView(APIView):
             raise Http404
 
     def get(self,request,pk,format=None):
-        snippet= self.get_object(pk)
+        snippet= self.get_object(pk=pk)
         serializer= SnippetSerializer(snippet)
         return Response(serializer.data)
 
