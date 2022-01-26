@@ -28,12 +28,12 @@ class UserDetailAPIView(APIView):
             raise Http404
 
     def get(self,request,pk):
-        snippet= self.get_object(pk)
+        snippet= self.get_object(pk=pk)
         serializer= UserSerializer(snippet)
         return Response(serializer.data)
 
     def put(self,request,pk):
-        snippet= self.get_object(pk)
+        snippet= self.get_object(pk=pk)
         serializer= UserSerializer(snippet,data=request.data)
         if serializer.is_valid() == True:
             serializer.save()
@@ -41,7 +41,7 @@ class UserDetailAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,pk):
-        snippet= self.get_object(pk)
+        snippet= self.get_object(pk=pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
