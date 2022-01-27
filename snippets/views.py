@@ -46,6 +46,9 @@ class UserDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class SnippetAPIView(APIView):
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
     def get(self,request,format=None):
         snippets= Snippet.objects.all()
         serializer= SnippetSerializer(snippets,many=True)
