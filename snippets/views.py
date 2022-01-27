@@ -4,9 +4,11 @@ from snippets.models import Snippet
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from snippets.serializers import SnippetSerializer,UserSerializer
 
 class UserAPIView(APIView):
+
     def get(self,request):
         snippets= User.objects.all()
         serializer= UserSerializer(snippets,many=True)
@@ -21,6 +23,7 @@ class UserAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetailAPIView(APIView):
+
     def get_object(self,pk):
         try:
             return User.objects.get(pk=pk)
@@ -46,6 +49,8 @@ class UserDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class SnippetAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
@@ -66,6 +71,8 @@ class SnippetAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class SnippetDetailAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
     def get_object(self, pk):
         try:
             return Snippet.objects.get(pk=pk)
