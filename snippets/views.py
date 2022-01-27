@@ -4,6 +4,7 @@ from snippets.models import Snippet
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
+from snippets.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from snippets.serializers import SnippetSerializer,UserSerializer
 
@@ -71,7 +72,7 @@ class SnippetAPIView(APIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class SnippetDetailAPIView(APIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
 
     def get_object(self, pk):
         try:
