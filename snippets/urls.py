@@ -4,11 +4,11 @@ from snippets.views import api_root,SnippetAPIView,SnippetDetailAPIView,UserAPIV
 
 urlpatterns = [
     path('',api_root),
-    path('users/',UserAPIView.as_view()),
-    path('users/<int:pk>/',UserDetailAPIView.as_view()),
-    path('snippets/',SnippetAPIView.as_view()),
-    path('snippets/<int:pk>/',SnippetDetailAPIView.as_view()),
-    path('snippets/<int:pk>/highlight/',SnippetHighlightAPIView.as_view())
+    path('users/',UserAPIView.as_view(),name='user-list'),
+    path('users/<int:pk>/',UserDetailAPIView.as_view(),name='user-detail'),
+    path('snippets/',SnippetAPIView.as_view(),name='snippet-list'),
+    path('snippets/<int:pk>/',SnippetDetailAPIView.as_view(),name='snippet-detail'),
+    path('snippets/<int:pk>/highlight/',SnippetHighlightAPIView.as_view(),name='snippet-highlight'),
 ]
 
 urlpatterns= format_suffix_patterns(urlpatterns)
