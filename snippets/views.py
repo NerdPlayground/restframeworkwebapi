@@ -1,12 +1,14 @@
 from django.http import Http404
 from rest_framework import status
 from snippets.models import Snippet
+from rest_framework import renderers
 from rest_framework.reverse import reverse
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
 from rest_framework.decorators import api_view
 from snippets.permissions import IsOwnerOrReadOnly
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from snippets.serializers import SnippetSerializer,UserSerializer
 
@@ -16,6 +18,14 @@ def api_root(request,format=None):
         'users':reverse('user-list',request=request,format=format),
         'snippets':reverse('snippet-list',request=request,format=format),
     })
+
+class SnippetHighlightAPIView(GenericAPIView):
+    queryset= Snippet.objects.all()
+    renderer_classes= [renderers.StaticHTMLRenderer]
+
+    def get(self, request, *args, **kwargs):
+        snippet= self.get_object()
+        return Response(snippet.highlighted)
 
 class UserAPIView(APIView):
 
